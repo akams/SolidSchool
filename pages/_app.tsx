@@ -1,10 +1,27 @@
-import Head from 'next/head'
-import '../styles/globals.css'
-import { AppProps } from 'next/app'
+import React, { useEffect, Fragment } from "react";
+import Head from "next/head";
+import { ThemeProvider, CssBaseline } from "@mui/material";
 
-export default function MyApp({ Component, pageProps }: AppProps) {
+import { theme } from "@Theme/index";
+
+import { CacheProvider, EmotionCache } from "@emotion/react";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import { createEmotionCache } from "@Utils/create-emotion-cache";
+
+// import { GlobalStateProvider } from "@Context/UserContext";
+import { GlobalLayoutStateProvider } from "@Context/LayoutContext";
+
+import "../styles/globals.css";
+
+const clientSideEmotionCache = createEmotionCache();
+
+export default function MyApp(props: any) {
+  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+  const getLayout = Component.getLayout ?? ((page: any) => page);
+
   return (
-    <>
+    <CacheProvider value={emotionCache}>
       <Head>
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -32,7 +49,17 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <link rel="apple-touch-icon" href="/apple-icon.png"></link>
         <meta name="theme-color" content="#317EFB" />
       </Head>
-      <Component {...pageProps} />
-    </>
-  )
+
+      {/* <GlobalLayoutStateProvider> */}
+        {/* <GlobalStateProvider> */}
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              {getLayout(<Component {...pageProps} />)}
+            </ThemeProvider>
+          </LocalizationProvider>
+        {/* </GlobalStateProvider> */}
+      {/* </GlobalLayoutStateProvider> */}
+    </CacheProvider>
+  );
 }
