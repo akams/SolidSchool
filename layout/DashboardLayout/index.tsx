@@ -2,11 +2,10 @@ import { useState } from "react";
 import { Box } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
-import { useLayoutGlobalState } from "@Context/LayoutContext";
-import { useGlobalState } from "@Context/UserContext";
+// import { useLayoutGlobalState } from "@Context/LayoutContext";
+// import { useGlobalState } from "@Context/UserContext";
 import { DashboardNavbar } from "@Layout/DashboardNavbar";
 import { DashboardSidebar } from "@Layout/DashboardSidebar";
-import { redirectPage } from "@Utils/redirect";
 
 const DashboardLayoutRoot = styled("div")(({ theme }) => ({
   display: "flex",
@@ -18,24 +17,9 @@ const DashboardLayoutRoot = styled("div")(({ theme }) => ({
   },
 }));
 
-export const DashboardLayout = (props) => {
+export const DashboardLayout = (props: any) => {
   const { children } = props;
   const [isSidebarOpen, setSidebarOpen] = useState(true);
-  const [layoutState] = useLayoutGlobalState();
-  const { isSidebarOpened } = layoutState;
-  const [state, dispatch] = useGlobalState();
-  const { user } = state;
-  // console.log("layoutState", layoutState);
-  // console.log("state", state);
-  // console.log("user", user);
-
-  const isAuthenticated = Object.keys(user).length !== 0;
-
-  // console.log("isAuthenticated", isAuthenticated);
-
-  if (!isAuthenticated) {
-    redirectPage("/login");
-  }
 
   return (
     <>
@@ -51,10 +35,10 @@ export const DashboardLayout = (props) => {
           {children}
         </Box>
       </DashboardLayoutRoot>
-      <DashboardNavbar onSidebarOpen={() => setSidebarOpen(false)} />
+      <DashboardNavbar open={isSidebarOpen} onSidebarOpen={setSidebarOpen} />
       <DashboardSidebar
         onClose={() => setSidebarOpen(false)}
-        open={isSidebarOpened}
+        open={isSidebarOpen}
       />
     </>
   );

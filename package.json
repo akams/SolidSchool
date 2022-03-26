@@ -3,13 +3,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "start-local-db": "docker-compose up -d"
   },
   "dependencies": {
-    "next": "latest",
-    "next-pwa": "^5.4.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
     "@emotion/cache": "^11.5.0",
     "@emotion/react": "^11.5.0",
     "@emotion/server": "^11.4.0",
@@ -29,13 +26,18 @@
     "eslint-config-next": "^12.1.0",
     "formik": "^2.1.5",
     "history": "^5.0.0",
+    "mysql2": "^2.3.3",
+    "next": "latest",
+    "next-auth": "^4.3.1",
+    "next-pwa": "^5.4.1",
     "nprogress": "^0.2.0",
     "prop-types": "^15.7.2",
+    "react": "^17.0.2",
     "react-chartjs-2": "^3.0.4",
+    "react-dom": "^17.0.2",
     "react-perfect-scrollbar": "^1.5.8",
     "uuid": "^8.3.0",
-    "yup": "^0.32.9",
-    "mysql2": "^2.3.3"
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@types/node": "17.0.4",

@@ -2,26 +2,26 @@ import { useEffect } from "react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
-import {
-  Box,
-  Button,
-  Divider,
-  Drawer,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
-import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import { ChartBar as ChartBarIcon } from "@Icons/chart-bar";
-import { Cog as CogIcon } from "@Icons/cog";
-import { Lock as LockIcon } from "@Icons/lock";
-import { Selector as SelectorIcon } from "@Icons/selector";
-import { ShoppingBag as ShoppingBagIcon } from "@Icons/shopping-bag";
-import { User as UserIcon } from "@Icons/user";
-import { UserAdd as UserAddIcon } from "@Icons/user-add";
-import { Users as UsersIcon } from "@Icons/users";
-import { XCircle as XCircleIcon } from "@Icons/x-circle";
+import { Box, Divider, Drawer, Typography, useMediaQuery } from "@mui/material";
+import { ChartBar as ChartBarIcon } from "@Atoms/Icons/chart-bar";
+import { Cog as CogIcon } from "@Atoms/Icons/cog";
+import { Lock as LockIcon } from "@Atoms/Icons/lock";
+import { Selector as SelectorIcon } from "@Atoms/Icons/selector";
+import { ShoppingBag as ShoppingBagIcon } from "@Atoms/Icons/shopping-bag";
+import { User as UserIcon } from "@Atoms/Icons/user";
+import { UserAdd as UserAddIcon } from "@Atoms/Icons/user-add";
+import { Users as UsersIcon } from "@Atoms/Icons/users";
+import { XCircle as XCircleIcon } from "@Atoms/Icons/x-circle";
 import { Logo } from "@Atoms/Logo";
 import { NavItem } from "../nav-item";
+
+const adminItems = [
+  {
+    href: "/",
+    icon: <UsersIcon fontSize="small" />,
+    title: "Gestion utilisateurs",
+  },
+];
 
 const items = [
   {
@@ -32,41 +32,31 @@ const items = [
   {
     href: "/customers",
     icon: <UsersIcon fontSize="small" />,
-    title: "Customers",
+    title: "Gestion des classes",
+  },
+  {
+    href: "/customers",
+    icon: <UsersIcon fontSize="small" />,
+    title: "Gestion des étudiants",
   },
   {
     href: "/products",
     icon: <ShoppingBagIcon fontSize="small" />,
-    title: "Products",
+    title: "Gestion des règlements et facturation",
   },
   {
     href: "/account",
     icon: <UserIcon fontSize="small" />,
-    title: "Account",
+    title: "RH - Suivis des employées",
   },
   {
     href: "/settings",
     icon: <CogIcon fontSize="small" />,
-    title: "Settings",
-  },
-  {
-    href: "/login",
-    icon: <LockIcon fontSize="small" />,
-    title: "Login",
-  },
-  {
-    href: "/register",
-    icon: <UserAddIcon fontSize="small" />,
-    title: "Register",
-  },
-  {
-    href: "/404",
-    icon: <XCircleIcon fontSize="small" />,
-    title: "Error",
+    title: "Administration",
   },
 ];
 
-export const DashboardSidebar = (props) => {
+export const DashboardSidebar = (props: any) => {
   const { open, onClose } = props;
   const router = useRouter();
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"), {
@@ -140,6 +130,22 @@ export const DashboardSidebar = (props) => {
               />
             </Box>
           </Box>
+          <Divider
+            sx={{
+              borderColor: "#2D3748",
+              my: 3,
+            }}
+          />
+          <Box sx={{ flexGrow: 1 }}>
+            {adminItems.map((item) => (
+              <NavItem
+                key={item.title}
+                icon={item.icon}
+                href={item.href}
+                title={item.title}
+              />
+            ))}
+          </Box>
         </div>
         <Divider
           sx={{
@@ -158,44 +164,6 @@ export const DashboardSidebar = (props) => {
           ))}
         </Box>
         <Divider sx={{ borderColor: "#2D3748" }} />
-        <Box
-          sx={{
-            px: 2,
-            py: 3,
-          }}
-        >
-          <Typography color="neutral.100" variant="subtitle2">
-            Need more features?
-          </Typography>
-          <Typography color="neutral.500" variant="body2">
-            Check out our Pro solution template.
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              mt: 2,
-              mx: "auto",
-              width: "160px",
-              "& img": {
-                width: "100%",
-              },
-            }}
-          >
-            <img alt="Go to pro" src="/static/images/sidebar_pro.png" />
-          </Box>
-          <NextLink href="https://material-kit-pro-react.devias.io/" passHref>
-            <Button
-              color="secondary"
-              component="a"
-              endIcon={<OpenInNewIcon />}
-              fullWidth
-              sx={{ mt: 2 }}
-              variant="contained"
-            >
-              Pro Live Preview
-            </Button>
-          </NextLink>
-        </Box>
       </Box>
     </>
   );

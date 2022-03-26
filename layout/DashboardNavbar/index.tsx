@@ -11,9 +11,9 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-import { Bell as BellIcon } from "@Icons/bell";
-import { UserCircle as UserCircleIcon } from "@Icons/user-circle";
-import { Users as UsersIcon } from "@Icons/users";
+import { Bell as BellIcon } from "@Atoms/Icons/bell";
+import { UserCircle as UserCircleIcon } from "@Atoms/Icons/user-circle";
+import { Users as UsersIcon } from "@Atoms/Icons/users";
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -21,7 +21,7 @@ const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
 }));
 
 export const DashboardNavbar = (props) => {
-  const { onSidebarOpen, ...other } = props;
+  const { onSidebarOpen, open, ...other } = props;
 
   return (
     <>
@@ -45,7 +45,7 @@ export const DashboardNavbar = (props) => {
           }}
         >
           <IconButton
-            onClick={onSidebarOpen}
+            onClick={() => onSidebarOpen(!open)}
             sx={{
               display: {
                 xs: "inline-flex",
@@ -91,4 +91,5 @@ export const DashboardNavbar = (props) => {
 
 DashboardNavbar.propTypes = {
   onSidebarOpen: PropTypes.func,
+  open: PropTypes.bool,
 };

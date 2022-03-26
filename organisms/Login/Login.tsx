@@ -9,6 +9,8 @@ import {
   Fade,
 } from '@mui/material';
 
+import { useRouter } from 'next/router'
+
 // import { signIn } from '@Services/login';
 // import { useGlobalState } from '@Context/UserContext'
 
@@ -19,7 +21,7 @@ function Login(props: any) {
   const classes = useStyles(props);
   // console.log('classes', classes)
   // const [, dispatch] = useGlobalState()
-  // const navigate = useNavigate();
+  const router = useRouter()
 
   // local
   const [isLoading, setIsLoading] = useState(false);
@@ -31,7 +33,7 @@ function Login(props: any) {
   const handleSubmitWrapper = async (formData: any) => {
     // const [user] = await signIn(formData)
     // dispatch({type: 'user-loaded', payload: user})
-    // navigate('/first');
+    router.push('/page2')
   };
 
   return (
@@ -57,11 +59,14 @@ function Login(props: any) {
             <TextField
               label="Clés profil"
               id="outlined-start-adornment"
-              sx={{ m: 1, width: '25ch' }}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">KEY | </InputAdornment>
                 ),
+                classes: {
+                  underline: classes.textFieldUnderline,
+                  input: classes.textField,
+                },
               }}
               value={structKey}
               onChange={(e) => setkeyStruct(e.target.value)}

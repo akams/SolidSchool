@@ -1,5 +1,6 @@
 import React, { useEffect, Fragment } from "react";
 import Head from "next/head";
+import { SessionProvider } from "next-auth/react"
 import { ThemeProvider, CssBaseline } from "@mui/material";
 
 import { theme } from "@Theme/index";
@@ -9,7 +10,7 @@ import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { createEmotionCache } from "@Utils/create-emotion-cache";
 
-// import { GlobalStateProvider } from "@Context/UserContext";
+import { GlobalStateProvider } from "@Context/UserContext";
 import { GlobalLayoutStateProvider } from "@Context/LayoutContext";
 
 import "../styles/globals.css";
@@ -50,16 +51,16 @@ export default function MyApp(props: any) {
         <meta name="theme-color" content="#317EFB" />
       </Head>
 
-      {/* <GlobalLayoutStateProvider> */}
-        {/* <GlobalStateProvider> */}
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <GlobalLayoutStateProvider>
+          <SessionProvider session={pageProps.session} refetchInterval={0}>
             <ThemeProvider theme={theme}>
               <CssBaseline />
               {getLayout(<Component {...pageProps} />)}
             </ThemeProvider>
-          </LocalizationProvider>
-        {/* </GlobalStateProvider> */}
-      {/* </GlobalLayoutStateProvider> */}
+          </SessionProvider>
+        </GlobalLayoutStateProvider>
+      </LocalizationProvider>
     </CacheProvider>
   );
 }
