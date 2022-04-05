@@ -24,7 +24,6 @@
       "@Theme/*": ["theme/*"],
       "@Utils/*": ["utils/*"],
       "@Services/*": ["services/*"],
-      "@Icons/*": ["icons/*"],
       "@Backend/Controllers/*": ["backend/controllers/*"],
       "@Backend/Models/*": ["backend/models/*"],
       "@Backend/Services/*": ["backend/services/*"],
