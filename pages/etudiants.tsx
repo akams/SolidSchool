@@ -9,9 +9,9 @@ function Page3(props: any) {
   return (
     <Fragment>
       <Head>
-        <title>Login page 3</title>
+        <title>Gestion des étudiants</title>
       </Head>
-      <h1>Login page 3</h1>
+      <h1>Gestion des étudiants</h1>
       <button type="button" onClick={() => router.push('/page2')}>page 2</button>
       <button type="button" onClick={() => router.push('/login')}>login</button>
       {/* <LoginOrganism /> */}

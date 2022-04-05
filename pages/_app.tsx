@@ -1,6 +1,5 @@
 import React, { useEffect, Fragment } from "react";
 import Head from "next/head";
-import { SessionProvider } from "next-auth/react"
 import { ThemeProvider, CssBaseline } from "@mui/material";
 
 import { theme } from "@Theme/index";
@@ -53,12 +52,10 @@ export default function MyApp(props: any) {
 
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <GlobalLayoutStateProvider>
-          <SessionProvider session={pageProps.session} refetchInterval={0}>
             <ThemeProvider theme={theme}>
               <CssBaseline />
               {getLayout(<Component {...pageProps} />)}
             </ThemeProvider>
-          </SessionProvider>
         </GlobalLayoutStateProvider>
       </LocalizationProvider>
     </CacheProvider>
