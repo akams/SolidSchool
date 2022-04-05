@@ -1,23 +1,27 @@
-import mysql from "mysql2";
+import mysql from "mysql2/promise";
+
 
 export default class MysqlDataBase {
-  constructor() {
-    const connection = mysql.createConnection({
-      host: "localhost",
-      user: "root",
-      password: "mySecret1!",
-      database: "solid-school-mysql",
-      port: 6033,
-    });
-    connection.connect(function (err) {
-      if (err) {
-        console.error("error connecting: " + err.stack);
-        throw err;
-      }
+  constructor() {}
+
+  async createConnection() {
+    try {
+      const connection = await mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "mySecret1!",
+        database: "solid-school-mysql",
+        port: 6033,
+      });
       console.log("connection work with succeed");
       console.log("connected as id " + connection.threadId);
-    });
 
-    return connection;
+      return connection
+    } catch (error) {
+      //@ts-ignore
+      console.error("error connecting: " + error.stack);
+      throw error;
+    }
   }
+
 }
