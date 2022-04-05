@@ -30,12 +30,12 @@ const items = [
     title: "Dashboard",
   },
   {
-    href: "/customers",
+    href: "/classes",
     icon: <UsersIcon fontSize="small" />,
     title: "Gestion des classes",
   },
   {
-    href: "/customers",
+    href: "/etudiants",
     icon: <UsersIcon fontSize="small" />,
     title: "Gestion des étudiants",
   },
