@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { Classroom } from './index'
+import { Classroom } from './type'
 
 type ClassroomsListResultsProps = {
   classrooms: Classroom[];

@@ -3,7 +3,7 @@ import Head from "next/head";
 import { Box, Container } from "@mui/material";
 import { useRouter } from "next/router";
 import { DashboardLayout } from "@Layout/DashboardLayout";
-import { AccountProfileDetails } from "@Organisms/Classes";
+import { ClassroomEdit } from "@Organisms/Classes";
 
 function Edit(props: any) {
   const router = useRouter();
@@ -21,7 +21,7 @@ function Edit(props: any) {
       >
         <Container maxWidth={false}>
           <Box>
-            <AccountProfileDetails />
+            <ClassroomEdit />
           </Box>
         </Container>
       </Box>
