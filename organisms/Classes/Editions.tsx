@@ -10,23 +10,20 @@ import {
   TextField,
 } from "@mui/material";
 
+import { useMutationClassrooms } from "@Services/classrooms";
 
-const ClassroomEdit = (props: any) => {
-  // const [values, setValues] = useState({
-  //   firstName: "Katarina",
-  //   lastName: "Smith",
-  //   email: "demo@devias.io",
-  //   phone: "",
-  //   state: "Alabama",
-  //   country: "USA",
-  // });
+const ClassroomEdit = () => {
+  const [name, setName] = useState("test 1");
+  const { mutate, isSuccess, error, isLoading } = useMutationClassrooms();
+  console.log({ isSuccess, error, isLoading });
 
   const handleChange = (event: any) => {
-    // setValues({
-    //   ...values,
-    //   [event.target.name]: event.target.value,
-    // });
+    setName(event.target.value);
   };
+
+  function validate() {
+    mutate({ label: name });
+  }
 
   return (
     <form autoComplete="off" noValidate>
@@ -43,7 +40,7 @@ const ClassroomEdit = (props: any) => {
                 name="name"
                 onChange={handleChange}
                 required
-                // value={values.lastName}
+                value={name}
                 variant="outlined"
               />
             </Grid>
@@ -57,7 +54,7 @@ const ClassroomEdit = (props: any) => {
             p: 2,
           }}
         >
-          <Button color="primary" variant="contained">
+          <Button color="primary" variant="contained" onClick={validate}>
             Enregistrer
           </Button>
         </Box>
@@ -66,4 +63,4 @@ const ClassroomEdit = (props: any) => {
   );
 };
 
-export default ClassroomEdit
+export default ClassroomEdit;

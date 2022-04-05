@@ -1,8 +1,10 @@
 import { Fragment } from "react";
-import useSWR from "swr";
 import Head from "next/head";
-import { Box, Container } from "@mui/material";
 import { useRouter } from "next/router";
+import { Box, Container } from "@mui/material";
+
+import { useClassrooms } from '@Services/classrooms'
+
 import { DashboardLayout } from "@Layout/DashboardLayout";
 import ClassesOrganism from "@Organisms/Classes";
 import ListToolbar from "@Molecules/ListToolbar";
@@ -12,9 +14,8 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 function Classes(props: any) {
   const router = useRouter();
-
-  const { data, error } = useSWR("/api/classrooms", fetcher);
-  console.log({ data });
+  const { isLoading, error, data } = useClassrooms()
+  console.log({ isLoading, error, data })
   return (
     <Fragment>
       <Head>
@@ -35,7 +36,7 @@ function Classes(props: any) {
             urlCreateBtn="/classroom/ajout"
           />
           <Box sx={{ mt: 3 }}>
-            {data ? <ClassesOrganism classrooms={data} /> : <Spinner />}
+            {isLoading ? <Spinner /> : <ClassesOrganism classrooms={data} />}
           </Box>
         </Container>
       </Box>

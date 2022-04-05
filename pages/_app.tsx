@@ -1,6 +1,7 @@
 import React, { useEffect, Fragment } from "react";
 import Head from "next/head";
 import { ThemeProvider, CssBaseline } from "@mui/material";
+import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
 
 import { theme } from "@Theme/index";
 
@@ -19,6 +20,7 @@ const clientSideEmotionCache = createEmotionCache();
 export default function MyApp(props: any) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   const getLayout = Component.getLayout ?? ((page: any) => page);
+  const queryClient = new QueryClient()
 
   return (
     <CacheProvider value={emotionCache}>
@@ -53,8 +55,10 @@ export default function MyApp(props: any) {
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <GlobalLayoutStateProvider>
             <ThemeProvider theme={theme}>
-              <CssBaseline />
-              {getLayout(<Component {...pageProps} />)}
+              <QueryClientProvider client={queryClient}>
+                <CssBaseline />
+                {getLayout(<Component {...pageProps} />)}
+              </QueryClientProvider>
             </ThemeProvider>
         </GlobalLayoutStateProvider>
       </LocalizationProvider>
