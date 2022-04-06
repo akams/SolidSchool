@@ -10,11 +10,11 @@ import {
   TextField,
 } from "@mui/material";
 
-import { useMutationClassrooms } from "@Services/classrooms";
+import { useCreationMutationClassrooms } from "@Services/classrooms";
 
 const ClassroomEdit = () => {
   const [name, setName] = useState("test 1");
-  const { mutate, isSuccess, error, isLoading } = useMutationClassrooms();
+  const { mutate, isSuccess, error, isLoading } = useCreationMutationClassrooms();
   console.log({ isSuccess, error, isLoading });
 
   const handleChange = (event: any) => {

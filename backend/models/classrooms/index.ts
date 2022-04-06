@@ -2,12 +2,8 @@ import MysqlDataBase from "@Backend/Services/db/mysql";
 
 async function getClassrooms() {
   const connection = await new MysqlDataBase().createConnection();
-  try {
-    const [rows] = await connection.execute("SELECT * FROM `classrooms`");
-    return rows;
-  } catch (error) {
-    throw error;
-  }
+  const [rows] = await connection.execute("SELECT * FROM `classrooms`");
+  return rows;
 }
 
 async function createClassroom(label: string) {
@@ -15,8 +11,15 @@ async function createClassroom(label: string) {
   const [rows] = await connection.query("INSERT INTO classrooms SET ?", {
     label,
   });
-  console.log('rows', rows)
+  console.log('createClassroom: rows', rows)
   return rows;
 }
 
-export { getClassrooms, createClassroom };
+async function deleteClassroom(id: number) {
+  const connection = await new MysqlDataBase().createConnection();
+  const [rows] = await connection.query("DELETE FROM classrooms WHERE id = ?", [id]);
+  console.log('deleteClassroom: rows', rows)
+  return rows;
+}
+
+export { getClassrooms, createClassroom, deleteClassroom };

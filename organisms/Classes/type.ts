@@ -1,4 +1,4 @@
 export type Classroom = {
-  id?: number;
+  id: number;
   label: string;
 };
