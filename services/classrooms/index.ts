@@ -37,8 +37,11 @@ const deleteClassroom: MutationFunction<null, number> = async (id: number): Prom
 };
 
 export const useCreationMutationClassrooms = () => useMutation(createClassroom);
+// export const useDeleteMutationClassrooms = (queryClient: any) => useMutation(deleteClassroom);
 export const useDeleteMutationClassrooms = (queryClient: any) => useMutation(deleteClassroom, {
-  onSuccess: () => queryClient.invalidateQueries(_QUERY_KEY),
+  onSuccess: () => {
+    queryClient.invalidateQueries(_QUERY_KEY)
+  },
 });
 
 

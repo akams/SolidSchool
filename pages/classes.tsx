@@ -1,16 +1,12 @@
 import { Fragment } from "react";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { Box, Container } from "@mui/material";
 
 import { DashboardLayout } from "@Layout/DashboardLayout";
 import ClassesOrganism from "@Organisms/Classes";
 import ListToolbar from "@Molecules/ListToolbar";
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
-function Classes(props: any) {
-  const router = useRouter();
+function ClasseRooms(props: any) {
   return (
     <Fragment>
       <Head>
@@ -32,7 +28,6 @@ function Classes(props: any) {
           />
           <Box sx={{ mt: 3 }}>
             <ClassesOrganism />
-            {/* {isLoading ? <Spinner /> : <ClassesOrganism />} */}
           </Box>
         </Container>
       </Box>
@@ -40,5 +35,5 @@ function Classes(props: any) {
   );
 }
 
-Classes.getLayout = (page: any) => <DashboardLayout>{page}</DashboardLayout>;
-export default Classes;
+ClasseRooms.getLayout = (page: any) => <DashboardLayout>{page}</DashboardLayout>;
+export default ClasseRooms;
