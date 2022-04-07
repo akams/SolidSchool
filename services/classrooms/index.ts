@@ -7,7 +7,7 @@ import {
 } from "react-query";
 import axios from "axios";
 
-import { Classroom } from "@Organisms/Classes/type";
+import { Classroom } from "@Organisms/Classrooms/type";
 import { fortmatResponse } from "@Utils/formatResponse";
 
 const apiClient = axios.create({

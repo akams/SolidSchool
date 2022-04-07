@@ -3,7 +3,7 @@ import Head from "next/head";
 import { Box, Container } from "@mui/material";
 
 import { DashboardLayout } from "@Layout/DashboardLayout";
-import ClassesOrganism from "@Organisms/Classes";
+import ClassesOrganism from "@Organisms/Classrooms";
 import ListToolbar from "@Molecules/ListToolbar";
 
 function ClasseRooms(props: any) {

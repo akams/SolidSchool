@@ -3,7 +3,7 @@ import Head from "next/head";
 import { Box, Container } from "@mui/material";
 import { useRouter } from "next/router";
 import { DashboardLayout } from "@Layout/DashboardLayout";
-import { ClassroomEdit } from "@Organisms/Classes";
+import { ClassroomEdit } from "@Organisms/Classrooms";
 
 function Edit(props: any) {
   const router = useRouter();
