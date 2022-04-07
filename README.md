@@ -34,6 +34,8 @@ npm run dev
 http://localhost:3000/
 ```
 
+## Developpement : Branch develop
+## Prod : Branch Master
 
 ## Deploy your own.
 
