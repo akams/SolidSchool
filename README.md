@@ -5,29 +5,35 @@ This example uses [`next-pwa`](https://github.com/shadowwalker/next-pwa) to crea
 ## How to use in dev
 
 ### Installation des packages
-
 ```bash
 npm install
 ```
 
 ### Installer docker
-
 ```bash
 https://runnable.com/docker/install-docker-on-macos
 ```
 
 ### Démarrer le docker du projet
-
 ```bash
 npm run start-local-db
 ```
 
+### Se rendre à l'url pour accéder à l'interface phpmyadmin
+```bash
+http://localhost:8081/
+```
+
 ### Démarrer le projet
-
-
 ```bash
 npm run dev
 ```
+
+### Se rendre à l'url pour accéder à l'application
+```bash
+http://localhost:3000/
+```
+
 
 ## Deploy your own.
 
