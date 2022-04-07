@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import {
-  useQueryClient
-} from "react-query";
+import { useQueryClient } from "react-query";
+import { useSnackbar } from "notistack";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import {
   Box,
@@ -16,23 +15,36 @@ import {
   IconButton,
 } from "@mui/material";
 
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import Spinner from "@Atoms/Spinner";
 
-import { useClassrooms, useDeleteMutationClassrooms } from '@Services/classrooms'
+import {
+  useClassrooms,
+  useDeleteMutationClassrooms,
+} from "@Services/classrooms";
 
-import { Classroom } from './type'
+import { Classroom } from "./type";
+
+const limit = 10;
 
 const ClassroomsListResults = () => {
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
+  const { enqueueSnackbar } = useSnackbar();
+
   const [classrooms, setClassrooms] = useState([]);
   const [selectedClassroomIds, setSelectedClassroomIds] = useState([]);
-  const limit = 10;
 
-  const { isLoading, error, data, status} = useClassrooms()
+  const { isLoading, error, data, status } = useClassrooms();
 
-  const { mutate: mutateDelete, isSuccess: isSuccessDelete, error: errorDelete, isLoading: isLoadingDelete } = useDeleteMutationClassrooms(queryClient)
+  const {
+    mutate: mutateDelete,
+    mutateAsync,
+    isSuccess,
+    error: errorDelete,
+    isLoading: isLoadingDelete,
+  } = useDeleteMutationClassrooms(queryClient);
+  console.log('1==isSuccess=>', isSuccess)
 
   const handleSelectAll = (event: any) => {
     let newSelectedClassroomIds = [];
@@ -73,13 +85,19 @@ const ClassroomsListResults = () => {
 
   function deleteSelected({ id }: Classroom) {
     mutateDelete(id);
+    console.log('2==isSuccess=>', isSuccess)
+    // if (isSuccess) {
+    //   console.log('2==isSuccess=>', isSuccess)
+    //   enqueueSnackbar('Suppression validée', {variant: 'success'})
+    // }
   }
 
+  // Set data from get
   useEffect(() => {
-    if (status === 'success') {
-      setClassrooms(data)
+    if (status === "success") {
+      setClassrooms(data);
     }
-  }, [data, status])
+  }, [data, status]);
 
   return (
     <Card>
@@ -105,52 +123,63 @@ const ClassroomsListResults = () => {
             </TableHead>
             <TableBody>
               {isLoading && classrooms.length === 0 && <Spinner />}
-              {classrooms.length !== 0 && classrooms.slice(0, limit).map((classroom: Classroom) => (
-                <TableRow
-                  hover
-                  key={classroom.id}
-                  //@ts-ignore
-                  selected={selectedClassroomIds.indexOf(classroom?.id) !== -1}
-                >
-                  <TableCell padding="checkbox">
-                    <Checkbox
-                      //@ts-ignore
-                      checked={selectedClassroomIds.indexOf(classroom.id) !== -1}
-                      onChange={(event) => handleSelectOne(event, classroom?.id)}
-                      value="true"
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <Box
-                      sx={{
-                        alignItems: "center",
-                        display: "flex",
-                      }}
-                    >
-                      <Typography color="textPrimary" variant="body1">
-                        {classroom.label}
-                      </Typography>
-                    </Box>
-                  </TableCell>
-                  <TableCell>
-                    <Box
-                      sx={{
-                        alignItems: "center",
-                        display: "flex",
-                      }}
-                    >
-                      <Typography color="textPrimary" variant="body1">
-                        <IconButton edge="start" aria-label="edit">
-                          <EditIcon />
-                        </IconButton>
-                        <IconButton edge="end" aria-label="delete" onClick={() => deleteSelected(classroom)}>
-                          <DeleteIcon />
-                        </IconButton>
-                      </Typography>
-                    </Box>
-                  </TableCell>
-                </TableRow>
-              ))}
+              {classrooms.length !== 0 &&
+                classrooms.slice(0, limit).map((classroom: Classroom) => (
+                  <TableRow
+                    hover
+                    key={classroom.id}
+                    //@ts-ignore
+                    selected={
+                      selectedClassroomIds.indexOf(classroom?.id) !== -1
+                    }
+                  >
+                    <TableCell padding="checkbox">
+                      <Checkbox
+                        //@ts-ignore
+                        checked={
+                          selectedClassroomIds.indexOf(classroom.id) !== -1
+                        }
+                        onChange={(event) =>
+                          handleSelectOne(event, classroom?.id)
+                        }
+                        value="true"
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <Box
+                        sx={{
+                          alignItems: "center",
+                          display: "flex",
+                        }}
+                      >
+                        <Typography color="textPrimary" variant="body1">
+                          {classroom.label}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                    <TableCell>
+                      <Box
+                        sx={{
+                          alignItems: "center",
+                          display: "flex",
+                        }}
+                      >
+                        <Typography color="textPrimary" variant="body1">
+                          <IconButton edge="start" aria-label="edit">
+                            <EditIcon />
+                          </IconButton>
+                          <IconButton
+                            edge="end"
+                            aria-label="delete"
+                            onClick={() => deleteSelected(classroom)}
+                          >
+                            <DeleteIcon />
+                          </IconButton>
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </Box>

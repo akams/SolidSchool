@@ -1,7 +1,8 @@
 import React, { useEffect, Fragment } from "react";
 import Head from "next/head";
 import { ThemeProvider, CssBaseline } from "@mui/material";
-import { QueryClient, QueryClientProvider, useQuery } from 'react-query'
+import { QueryClient, QueryClientProvider } from 'react-query'
+import { SnackbarProvider } from 'notistack';
 
 import { theme } from "@Theme/index";
 
@@ -9,6 +10,7 @@ import { CacheProvider, EmotionCache } from "@emotion/react";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import { createEmotionCache } from "@Utils/create-emotion-cache";
+// import Slide from '@mui/material/Slide';
 
 import { GlobalStateProvider } from "@Context/UserContext";
 import { GlobalLayoutStateProvider } from "@Context/LayoutContext";
@@ -56,8 +58,16 @@ export default function MyApp(props: any) {
         <GlobalLayoutStateProvider>
             <ThemeProvider theme={theme}>
               <QueryClientProvider client={queryClient}>
-                <CssBaseline />
-                {getLayout(<Component {...pageProps} />)}
+                <SnackbarProvider
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  maxSnack={3}
+                >
+                  <CssBaseline />
+                  {getLayout(<Component {...pageProps} />)}
+                </SnackbarProvider>
               </QueryClientProvider>
             </ThemeProvider>
         </GlobalLayoutStateProvider>
